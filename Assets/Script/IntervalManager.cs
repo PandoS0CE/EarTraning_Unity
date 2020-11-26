@@ -15,6 +15,7 @@ public class IntervalManager : MonoBehaviour
     private AudioSource m_MyAudioSource;
 
     public Text text_reponse;
+    public Button button_play_intervalle;
 
 
     // int past_first_note = 0;
@@ -103,8 +104,13 @@ public class IntervalManager : MonoBehaviour
 
     public IEnumerator playInterval(int first_note, int second_note)
     {
+        button_play_intervalle.interactable = false;
+
         playNote(m_playableNotes[first_note].m_clip);
         yield return new WaitUntil(() => m_MyAudioSource.isPlaying == false);
-        playNote(m_playableNotes[second_note].m_clip);     
+        playNote(m_playableNotes[second_note].m_clip);    
+        yield return new WaitUntil(() => m_MyAudioSource.isPlaying == false);
+        
+        button_play_intervalle.interactable = true; 
     }
 }
